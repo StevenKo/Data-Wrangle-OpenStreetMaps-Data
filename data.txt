@@ -1,0 +1,23 @@
+
+Map Link:
+
+  https://mapzen.com/data/metro-extracts
+  input city : Taipei
+
+Data Download Link:
+  
+  https://s3.amazonaws.com/metro-extracts.mapzen.com/taipei_taiwan.osm.bz2
+
+Why I choose this data?
+
+  I’m a Taiwanese and I lived in Taipei more 10 years, so I’m interested in this data!
+
+
+Short Description:
+
+  Taipei is the capital of Taiwan. 
+  The area of Taipei is only 271.799km^2 but the population is about 3 million, so it is very crowded.
+
+  It has no doubt that Taipei is economic, education, and cultural center of Taiwan. It is highly developed, it has MRT, railway, highway.
+
+  It is very convenient in Taipei, there many shopping stores, restaurants, convenience stores everywhere!   
