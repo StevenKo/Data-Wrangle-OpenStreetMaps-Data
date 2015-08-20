@@ -32,9 +32,10 @@ street_type_re = re.compile(u'路|街|巷|道', re.IGNORECASE)
 
 expected = [u"路", u"街", u"巷", u"道"]
 
-def audit_street_type(street_types, street_name,do_not_match_street_types):
+def audit_street_type(street_types, street_name,do_not_match_street_types,chinese_num):
     m = street_type_re.search(street_name)
     if m:
+        chinese_num["count"] = chinese_num["count"] + 1
         street_type = m.group()
         if street_type not in expected:
             street_types[street_type].add(street_name)
@@ -50,14 +51,18 @@ def audit(osmfile):
     osm_file = open(osmfile, "r")
     street_types = defaultdict(set)
     do_not_match_street_types = set()
+    chinese_num = {}
+    chinese_num["count"] = 0
     for event, elem in ET.iterparse(osm_file, events=("start",)):
 
         if elem.tag == "node" or elem.tag == "way":
             for tag in elem.iter("tag"):
                 if is_street_name(tag):
                     # print(tag.attrib['v'])
-                    audit_street_type(street_types, tag.attrib['v'],do_not_match_street_types)
+                    audit_street_type(street_types, tag.attrib['v'],do_not_match_street_types,chinese_num)
 
+    print "Num of Chinese Street name is:"
+    print chinese_num["count"]           
     return street_types,do_not_match_street_types
 
 if __name__ == '__main__':

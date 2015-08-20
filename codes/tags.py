@@ -23,14 +23,16 @@ lower_colon = re.compile(r'^([a-z]|_)*:([a-z]|_)*$')
 problemchars = re.compile(r'[=\+/&<>;\'"\?%#$@\,\. \t\r\n]')
 
 
-def key_type(element, keys, others):
+def key_type(element, keys, others, lowers, lower_colon_tags):
 
     if element.tag == "tag":
         key = element.attrib['k']
         if re.match(lower, key) != None:
             keys['lower'] += 1
+            lowers.add(key)
         elif re.match(lower_colon, key) != None:
             keys['lower_colon'] += 1
+            lower_colon_tags.add(key)
         elif re.match(problemchars, key) != None:
             keys['problemchars'] += 1
         else:
@@ -43,16 +45,20 @@ def key_type(element, keys, others):
 
 def process_map(filename):
     others = set()
+    lowers = set()
+    lower_colon_tags = set()
     keys = {"lower": 0, "lower_colon": 0, "problemchars": 0, "other": 0}
     for _, element in ET.iterparse(filename):
-        keys = key_type(element, keys, others)
+        keys = key_type(element, keys, others, lowers, lower_colon_tags)
 
-    return keys, others
+    return keys, others, lowers, lower_colon_tags
 
 if __name__ == "__main__":
-    keys,others = process_map('taipei_taiwan.osm')
+    keys,others, lowers, lower_colon_tags = process_map('/Users/steven/projects/Data-Wrangle-OpenStreetMaps-Data/taipei_taiwan.osm')
     pprint.pprint(keys)
-    pprint.pprint(others)
+    # pprint.pprint(others)
+    # pprint.pprint(lowers)
+    pprint.pprint(lower_colon_tags)
 
 
 """ 

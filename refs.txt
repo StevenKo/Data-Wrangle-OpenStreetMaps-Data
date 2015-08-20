@@ -1,1 +1,3 @@
-N/A
+1.MongoDB document
+  http://docs.mongodb.org/manual/reference/operator/query/
+2."Data Wrangling with mongoDB", Udacity course
